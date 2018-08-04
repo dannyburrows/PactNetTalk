@@ -17,14 +17,14 @@ namespace Api.Controllers
         public ActionResult<IEnumerable<object>> Get()
         {
             return Ok(new List<object> {
-                Get(0)
+                _service.Get(0)
             });
         }
 
         [HttpGet("{id}")]
         public ActionResult<object> Get(int id)
         {
-            return Ok(id);
+            return Ok(_service.Get(id));
         }
 
         [HttpPost]
