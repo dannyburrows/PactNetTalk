@@ -9,12 +9,12 @@ namespace Api.Controllers {
   [Route ("api/[controller]")]
   [ApiController]
   public class ClientController : ControllerBase {
-    private PactNetClient _client = new PactNetClient();
+    private PactNetClient _client = new PactNetClient("https://localhost:5001");
 
     [HttpGet]
     public ActionResult<IEnumerable<object>> Get () {
       return Ok (new List<object> {
-        _client.Get()
+        _client.Get(0)
       });
     }
   }
