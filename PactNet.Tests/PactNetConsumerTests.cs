@@ -54,11 +54,12 @@ namespace PactNet.Tests {
                         },
                         Body = expectedUser
                 });
-            var consumer = new PactNet.Library.PactNetClient ();
+            var consumer = new PactNet.Library.PactNetClient (_baseUri);
             // Act
             var result = await consumer.Get (0);
             // Assert
             Assert.True(result.Equals(expectedUser));
+            _mockProviderService.VerifyInteractions();
         }
     }
 }
