@@ -22,8 +22,6 @@ public class ConsumerApiPactFixture : IDisposable {
   }
 
   public void Dispose () {
-    Console.WriteLine("Building");
     PactBuilder.Build();
-    Console.WriteLine("Done");
   }
 }

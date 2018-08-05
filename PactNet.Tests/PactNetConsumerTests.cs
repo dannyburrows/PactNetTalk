@@ -41,7 +41,7 @@ namespace PactNet.Tests {
             };
             _mockProviderService
                 .Given ("There is a user for the id")
-                .UponReceiving ("A properly GET request with the user id")
+                .UponReceiving ("A properly formatted GET request with the user id")
                 .With (new ProviderServiceRequest {
                     Method = HttpVerb.Get,
                     Path = "/api/user/0"
@@ -54,7 +54,6 @@ namespace PactNet.Tests {
             var consumer = new PactNetClient (_baseUri);
             // Act
             var result = consumer.Get (0).GetAwaiter().GetResult();
-            Console.WriteLine(result);
             // Assert
             Assert.NotNull(result);
             Assert.Equal(result.Id, expectedUser.Id);

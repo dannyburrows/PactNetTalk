@@ -1,0 +1,48 @@
+{
+  "consumer": {
+    "name": "PactNet Consumer"
+  },
+  "provider": {
+    "name": "PactNet Provider"
+  },
+  "interactions": [
+    {
+      "description": "A properly formatted GET request with the user id",
+      "providerState": "There is a user for the id",
+      "request": {
+        "method": "get",
+        "path": "/api/user/0"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "Id": 0,
+          "Name": "Tony Stark",
+          "Occupation": "Iron Man",
+          "Roles": [
+            {
+              "Name": "Genius",
+              "Description": "Building Jarvis, aka Vision, aka AI"
+            },
+            {
+              "Name": "CEO",
+              "Description": "Lying to the board"
+            },
+            {
+              "Name": "Fighter",
+              "Description": "Made Thanos bleed"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}
