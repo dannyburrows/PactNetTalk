@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using PactNet.Library;
 using PactNet.Mocks.MockHttpService;
 using PactNet.Mocks.MockHttpService.Models;
 using Xunit;
@@ -18,6 +20,25 @@ namespace PactNet.Tests {
         [Fact]
         public async Task GetUser_WhenPactExists_ReturnsUser () {
             // Arrange
+            var expectedUser = new User {
+                Id = 0,
+                Name = "Tony Stark",
+                Occupation = "Iron Man",
+                Roles = new List<Role> {
+                new Role {
+                Name = "Genius",
+                Description = "Building Jarvis, aka Vision, aka AI"
+                },
+                new Role {
+                Name = "CEO",
+                Description = "Lying to the board"
+                },
+                new Role {
+                Name = "Fighter",
+                Description = "Made Thanos bleed"
+                }
+                }
+            };
             _mockProviderService
                 .Given ("There is a user with id 0")
                 .UponReceiving ("A GET request with the user id")
@@ -31,31 +52,13 @@ namespace PactNet.Tests {
                     Status = 200,
                         Headers = new Dictionary<string, object> { { "Content-Type", "application/json" }
                         },
-                        Body = new {
-                            id = 0,
-                                name = "Tony Stark",
-                                occupation = "Iron Man",
-                                roles = new List<object> {
-                                    new {
-                                        name = "Genius",
-                                            description = "Building Jarvis, aka Vision, aka AI"
-                                    },
-                                    new {
-                                        name = "CEO",
-                                            description = "Lying to the board"
-                                    },
-                                    new {
-                                        name = "Fighter",
-                                            description = "Made Thanos bleed"
-                                    }
-                                }
-                        }
+                        Body = expectedUser
                 });
-            var consumer = new PactNet.Library.PactNetClient();
+            var consumer = new PactNet.Library.PactNetClient ();
             // Act
-            var result = await consumer.Get(0);
+            var result = await consumer.Get (0);
             // Assert
-            Assert.Equal(0, result.Id)
+            Assert.True(result.Equals(expectedUser));
         }
     }
 }

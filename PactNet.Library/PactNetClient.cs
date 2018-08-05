@@ -1,6 +1,8 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Net;
+using PactNet.Library;
+using Newtonsoft.Json;
 
 namespace PactNet.Library {
   public class PactNetClient {
@@ -11,12 +13,12 @@ namespace PactNet.Library {
       Uri = "https://localhost:5001/api";
     }
 
-    public async Task<object> Get(int id) {
+    public async Task<User> Get(int id) {
       var request = new HttpRequestMessage(HttpMethod.Get, $"/user/{id}");
       var response = await Client.SendAsync(request);
 
       if (response.StatusCode == HttpStatusCode.OK)
-        return response.Content;
+        return JsonConvert.DeserializeObject<User>(await response.Content.ReadAsStringAsync());
       
       return null;
     }
