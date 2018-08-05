@@ -14,12 +14,8 @@ namespace PactNet.Library {
     }
 
     public async Task<User> Get (int id) {
-      ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
       using (var client = new HttpClient { BaseAddress = new Uri(Uri) }) {
-        var request = new HttpRequestMessage (HttpMethod.Get, $"/api/user/{id}");
-        request.Headers.Add("Accept", "application/json");
-
-        var response = await client.SendAsync (request);
+        var response = await client.GetAsync($"/api/user/{id}");
 
         if (response.StatusCode == HttpStatusCode.OK)
           return JsonConvert.DeserializeObject<User> (await response.Content.ReadAsStringAsync ());

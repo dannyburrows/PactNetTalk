@@ -7,18 +7,18 @@ using PactNet.Mocks.MockHttpService.Models;
 using Xunit;
 
 namespace PactNet.Tests {
-    public class PactNetConsumerTests : IClassFixture<ConsumerApiPact> {
+    public class PactNetConsumerTests : IClassFixture<ConsumerApiPactFixture> {
         private IMockProviderService _mockProviderService;
         private string _baseUri;
 
-        public PactNetConsumerTests (ConsumerApiPact apiPact) {
+        public PactNetConsumerTests (ConsumerApiPactFixture apiPact) {
             _mockProviderService = apiPact.MockProviderService;
             _mockProviderService.ClearInteractions ();
             _baseUri = apiPact.MockProviderServiceBaseUri;
         }
 
         [Fact]
-        public async Task GetUser_WhenPactExists_ReturnsUser () {
+        public void GetUser_WhenPactExists_ReturnsUser () {
             // Arrange
             var expectedUser = new User {
                 Id = 0,
@@ -40,24 +40,25 @@ namespace PactNet.Tests {
                 }
             };
             _mockProviderService
-                .Given ("There is a user with id 0")
-                .UponReceiving ("A GET request with the user id")
+                .Given ("There is a user for the id")
+                .UponReceiving ("A properly GET request with the user id")
                 .With (new ProviderServiceRequest {
                     Method = HttpVerb.Get,
-                    Path = "api/user/0",
-                    Headers = new Dictionary<string, object> { { "Accept", "application/json" } }
+                    Path = "/api/user/0"
                 })
                 .WillRespondWith (new ProviderServiceResponse {
                     Status = 200,
                     Headers = new Dictionary<string, object> { { "Content-Type", "application/json" } },
-                    Body = new {id = "test"}
+                    Body = expectedUser
                 });
             var consumer = new PactNetClient (_baseUri);
             // Act
-            var result = await consumer.Get (0);
+            var result = consumer.Get (0).GetAwaiter().GetResult();
+            Console.WriteLine(result);
             // Assert
             Assert.NotNull(result);
-            Assert.True(result.Equals(expectedUser));
+            Assert.Equal(result.Id, expectedUser.Id);
+            Assert.Equal(result.Name, expectedUser.Name);
             _mockProviderService.VerifyInteractions();
         }
     }
