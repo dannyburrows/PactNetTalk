@@ -35,7 +35,7 @@ namespace PactNet.Tests {
             verifier.ProviderState ($"{_serviceUrl}/provider-states")
                 .ServiceProvider ("PactNet Provider", _providerUrl)
                 .HonoursPactWith ("PactNet Consumer")
-                .PactUri ("./pacts/pactnet_consumer-pactnet_provider.json")
+                .PactUri (@"..\..\..\pacts\pactnet_consumer-pactnet_provider.json")
                 .Verify ();
         }
     }

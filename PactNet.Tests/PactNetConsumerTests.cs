@@ -48,7 +48,7 @@ namespace PactNet.Tests {
                 })
                 .WillRespondWith (new ProviderServiceResponse {
                     Status = 200,
-                    Headers = new Dictionary<string, object> { { "Content-Type", "application/json" } },
+                    Headers = new Dictionary<string, object> { { "Content-Type", "application/json; charset=utf-8" } },
                     Body = expectedUser
                 });
             var consumer = new PactNetClient (_baseUri);

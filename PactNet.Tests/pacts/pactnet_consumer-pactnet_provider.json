@@ -16,24 +16,24 @@
       "response": {
         "status": 200,
         "headers": {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json; charset=utf-8"
         },
         "body": {
-          "Id": 0,
-          "Name": "Tony Stark",
-          "Occupation": "Iron Man",
-          "Roles": [
+          "id": 0,
+          "name": "Tony Stark",
+          "occupation": "Iron Man",
+          "roles": [
             {
-              "Name": "Genius",
-              "Description": "Building Jarvis, aka Vision, aka AI"
+              "name": "Genius",
+              "description": "Building Jarvis, aka Vision, aka AI"
             },
             {
-              "Name": "CEO",
-              "Description": "Lying to the board"
+              "name": "CEO",
+              "description": "Lying to the board"
             },
             {
-              "Name": "Fighter",
-              "Description": "Made Thanos bleed"
+              "name": "Fighter",
+              "description": "Made Thanos bleed"
             }
           ]
         }
