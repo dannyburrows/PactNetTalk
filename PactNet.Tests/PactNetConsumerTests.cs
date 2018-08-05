@@ -25,18 +25,18 @@ namespace PactNet.Tests {
                 Name = "Tony Stark",
                 Occupation = "Iron Man",
                 Roles = new List<Role> {
-                new Role {
-                Name = "Genius",
-                Description = "Building Jarvis, aka Vision, aka AI"
-                },
-                new Role {
-                Name = "CEO",
-                Description = "Lying to the board"
-                },
-                new Role {
-                Name = "Fighter",
-                Description = "Made Thanos bleed"
-                }
+                    new Role {
+                        Name = "Genius",
+                        Description = "Building Jarvis, aka Vision, aka AI"
+                    },
+                    new Role {
+                        Name = "CEO",
+                        Description = "Lying to the board"
+                    },
+                    new Role {
+                        Name = "Fighter",
+                        Description = "Made Thanos bleed"
+                    }
                 }
             };
             _mockProviderService
@@ -44,20 +44,19 @@ namespace PactNet.Tests {
                 .UponReceiving ("A GET request with the user id")
                 .With (new ProviderServiceRequest {
                     Method = HttpVerb.Get,
-                        Path = "api/users/0",
-                        Headers = new Dictionary<string, object> { { "Accept", "application/json" }
-                        }
+                    Path = "api/user/0",
+                    Headers = new Dictionary<string, object> { { "Accept", "application/json" } }
                 })
                 .WillRespondWith (new ProviderServiceResponse {
                     Status = 200,
-                        Headers = new Dictionary<string, object> { { "Content-Type", "application/json" }
-                        },
-                        Body = expectedUser
+                    Headers = new Dictionary<string, object> { { "Content-Type", "application/json" } },
+                    Body = new {id = "test"}
                 });
-            var consumer = new PactNet.Library.PactNetClient (_baseUri);
+            var consumer = new PactNetClient (_baseUri);
             // Act
             var result = await consumer.Get (0);
             // Assert
+            Assert.NotNull(result);
             Assert.True(result.Equals(expectedUser));
             _mockProviderService.VerifyInteractions();
         }

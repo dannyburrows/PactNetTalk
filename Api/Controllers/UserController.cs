@@ -11,7 +11,7 @@ namespace Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private PactNetService _service = new PactNetService();
+        private UserService _service = new UserService();
 
         [HttpGet("{id}")]
         public ActionResult<User> Get(int id)

@@ -10,13 +10,17 @@ public class ConsumerApiPact : IDisposable {
   public string MockProviderServiceBaseUri { get { return String.Format ("http://localhost:{0}", MockServerPort); } }
 
   public ConsumerApiPact () {
-    PactBuilder = new PactBuilder (new PactConfig { PactDir = @"..\pacts" });
+    PactBuilder = new PactBuilder (new PactConfig { 
+      SpecificationVersion = "2.0.0",
+      PactDir = @"..\pacts",
+      LogDir = @".\pact_logs"
+     });
 
     PactBuilder
       .ServiceConsumer ("Consumer")
       .HasPactWith ("Something API");
 
-    MockProviderService = PactBuilder.MockService (MockServerPort);
+    MockProviderService = PactBuilder.MockService(MockServerPort);
   }
 
   public void Dispose () {

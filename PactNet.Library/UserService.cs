@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PactNet.Library
 {
-    public class PactNetService
+    public class UserService
     {
         public User Get(int id) {
             return new User {
