@@ -18,14 +18,5 @@ namespace Api.Controllers
         {
             return Ok(_service.Get(id));
         }
-
-        [HttpPost]
-        public ActionResult Post([FromBody] string value)
-        {
-            return Ok(new {
-                user_id = 52,
-                value = value
-            });
-        }
     }
 }
