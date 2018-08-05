@@ -5,23 +5,23 @@ namespace PactNet.Library
 {
     public class PactNetService
     {
-        public object Get(int id) {
-            return new {
-                id = id,
-                name = "Tony Stark",
-                occupation = "Iron Man",
-                roles = new List<object>{
-                    new {
-                        name = "Genius",
-                        description = "Building Jarvis, aka Vision, aka AI"
+        public User Get(int id) {
+            return new User {
+                Id = id,
+                Name = "Tony Stark",
+                Occupation = "Iron Man",
+                Roles = new List<Role>{
+                    new Role {
+                        Name = "Genius",
+                        Description = "Building Jarvis, aka Vision, aka AI"
                     },
-                    new {
-                        name = "CEO",
-                        description = "Lying to the board"
+                    new Role {
+                        Name = "CEO",
+                        Description = "Lying to the board"
                     },
-                    new {
-                        name = "Fighter",
-                        description = "Made Thanos bleed"
+                    new Role {
+                        Name = "Fighter",
+                        Description = "Made Thanos bleed"
                     }
                 }
             };
